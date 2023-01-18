@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\CategoryController;
+
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -20,9 +21,13 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
+Route::resource('products', ProductController::class);
+
 Route::get('/products', [ProductController::class,'index']);
+Route::get('/categories', [CategoryController::class,'index']);
 Route::get('/products/{id}', [ProductController::class,'show']);
-    // Route::resource('products', ProductController::class);
+Route::get('/products/categories/{category_id}', [ProductController::class,'getByCategories']);
+Route::get('/products/users/{user_id}', [ProductController::class,'getByUsers']);
     // Route::resource('categories', CategoryController::class);
     // Route::resource('users', UserController::class);
 

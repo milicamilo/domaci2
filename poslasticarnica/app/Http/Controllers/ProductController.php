@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Product;
 use Illuminate\Http\Request;
+use App\Http\Resources\ProductResource;
 
 class ProductController extends Controller
 {
@@ -31,6 +32,16 @@ class ProductController extends Controller
         //
     }
 
+    public function getByCategories($category_id){
+        $products=Product::get()->where('category_id',$category_id);
+        return $products;
+    }
+
+    public function getByUsers($user_id){
+        $products=Product::get()->where('user_id',$user_id);
+        return $products;
+    }
+
     /**
      * Store a newly created resource in storage.
      *
@@ -48,10 +59,15 @@ class ProductController extends Controller
      * @param  \App\Models\Product  $product
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    // public function show($product_id)
+    // {
+    //     $products=Product::get()->where('id',$product_id);
+    //     return $products;
+    // }
+
+    public function show(Product $product)
     {
-        $products=Product::get()->where('id',$id);
-        return $products;
+        return new ProductResource($product);
     }
 
     /**
