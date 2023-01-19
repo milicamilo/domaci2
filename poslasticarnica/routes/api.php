@@ -41,14 +41,14 @@ Route::post('/login',[AuthController::class,'login']);
 //  Route::get('sneakers/type/{id}',[SneakersController::class,'getByType']);
 
 
-//  Route::group(['middleware' => ['auth:sanctum']], function () {
-//     Route::get('/profile', function(Request $request) {
-//         return auth()->user();
-//     });
+     Route::group(['middleware' => ['auth:sanctum']], function () {
+        Route::get('/profile', function(Request $request) {
+            return auth()->user();
+         });
 
-//     Route::get('my-sneakers',[SneakersController::class,'mySneakers']);
+       //  Route::get('my-products',[ProductController::class,'myProducts']);
 
-//     Route::get('/logout',[AuthController::class,'logout']);
+        Route::post('/logout',[AuthController::class,'logout']);
 
-//     Route::resource('sneakers',SneakersController::class)->only('store','update','destroy');
-// });
+        Route::resource('products',SneakersController::class)->only('store','update','destroy');
+     });
