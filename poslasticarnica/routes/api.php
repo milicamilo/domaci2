@@ -5,6 +5,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\API\AuthController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -30,9 +32,8 @@ Route::get('/products/categories/{category_id}', [ProductController::class,'getB
 Route::get('/products/users/{user_id}', [ProductController::class,'getByUsers']);
     // Route::resource('categories', CategoryController::class);
     // Route::resource('users', UserController::class);
-
-// Route::post('/register',[AuthController::class,'register']);
-// Route::post('/login',[AuthController::class,'login']);
+Route::post('/register',[AuthController::class,'register']);
+Route::post('/login',[AuthController::class,'login']);
 
 
 //  Route::get('sneakers/brand/{id}',[SneakersController::class,'getByBrand']);
