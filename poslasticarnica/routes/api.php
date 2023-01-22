@@ -19,12 +19,11 @@ use App\Http\Controllers\API\AuthController;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
-});
+ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
+     return $request->user();
+ });
 
 Route::resource('products', ProductController::class);
-
 Route::get('/products', [ProductController::class,'index']);
 Route::get('/categories', [CategoryController::class,'index']);
 Route::get('/products/{id}', [ProductController::class,'show']);
@@ -41,14 +40,15 @@ Route::post('/login',[AuthController::class,'login']);
 //  Route::get('sneakers/type/{id}',[SneakersController::class,'getByType']);
 
 
-     Route::group(['middleware' => ['auth:sanctum']], function () {
-        Route::get('/profile', function(Request $request) {
-            return auth()->user();
-         });
+Route::group(['middleware' => ['auth:sanctum']], function () {
 
-       //  Route::get('my-products',[ProductController::class,'myProducts']);
+    Route::resource('products', ProductController::class)->only(['store', 'update', 'destroy']);
 
-        Route::post('/logout',[AuthController::class,'logout']);
+    Route::post('products',[ProductController::class,'store']);
+    Route::put('products/{id}',[ProductController::class,'update']);
+    Route::delete('products/{id}',[ProductController::class,'destroy']);
 
-        Route::resource('products',SneakersController::class)->only('store','update','destroy');
-     });
+    Route::get('myProduct',[ProductController::class,'myProduct']);
+
+    Route::post('/logout',[AuthController::class,'logout']);
+});
